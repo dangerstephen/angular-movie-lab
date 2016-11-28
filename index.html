@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="movieApp">
+  <head>
+    <meta charset="utf-8">
+    <title> Angular Movie Lab</title>
+
+    <!-- custom styles -->
+     <link type="text/css" rel="stylesheet" href="main.css">
+     <!-- angular -->
+     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+     <!-- custom script -->
+     <script type="text/javascript" src="app.js"></script>
+  </head>
+  <body ng-controller="MovieController as movies">
+
+    <div class="container">
+    <div class="row">
+      <div class="addMovie col-md-6 col-md-offset-3">
+
+        <!-- form to add new movie -->
+
+        <form ng-submit="movies.addMovie()">
+          <div class="form-group">
+            <label for="movie-title">Add a New Movie</label>
+            <br>
+            <input type="text" ng-model="movies.movie.title" class="form-control" placeholder="New Movie Title" autofocus>
+          </div>
+          <input type="submit" value="Add New Movie" class="btn btn-default">
+        </form>
+</div>
+        <!-- show all moviesToWatch -->
+        <div class="allMovies">
+    <h2>
+                {{movies.moviesToWatch.length}}
+                <ng-pluralize count="movies.moviesToWatch.length" when="{'1': 'Movie', 'other': 'Movies'}">
+                </ng-pluralize>
+                to Watch
+              </h2>
+    <div ng-repeat="movie in movies.moviesToWatch | orderBy: 'title' | limitTo:5 ">
+  <h3>  {{movie.title }} <a href="#" ng-click="movies.deleteMovie(movie)"><img src="images/Trash_Can-512.png"> </a></h3>
+  </div>
+</div>
+
+  </body>
+</html>
